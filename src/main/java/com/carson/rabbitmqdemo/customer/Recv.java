@@ -5,6 +5,9 @@ import com.rabbitmq.client.*;
 
 import java.io.IOException;
 
+/**
+ * 自动ack
+ * */
 public class Recv {
     private final static String QUEUE_NAME = "simple_queue";
  
@@ -24,6 +27,10 @@ public class Recv {
          * 5、arguments 参数，可以设置一个队列的扩展参数，比如：可设置存活时间
          */
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+
+        // 绑定队列到交换机
+        //channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, "")
+
         //实现消费方法
         DefaultConsumer consumer = new DefaultConsumer(channel){
             // 获取消息，并且处理，这个方法类似事件监听，如果有消息的时候，会被自动调用

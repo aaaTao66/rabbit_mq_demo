@@ -7,7 +7,8 @@ import com.rabbitmq.client.Connection;
 public class Send {
  
     private final static String QUEUE_NAME = "simple_queue";
- 
+    private final static String EXCHANGE_NAME  = "test_fanout_exchange";
+
     public static void main(String[] argv) throws Exception {
         // 1、获取到连接
         Connection connection = ConnectionUtil.getConnection();
@@ -24,6 +25,9 @@ public class Send {
          * 5、arguments 参数，可以设置一个队列的扩展参数，比如：可设置存活时间
          */
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+
+        // 声明exchange，指定类型为fanout
+        //channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
         // 4、消息内容
         String message = "Hello World!";
         // 向指定的队列中发送消息
